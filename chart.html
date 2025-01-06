@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <header>
+    <div class="nav">  
+      <a href="interface.html"><img id="log" src="./images/TRADE.png"></a>
+      <div class="search">
+        <label for="ticker" id="p"></label>
+        <input type="text" id="ticker" placeholder="Symbol">
+      </div>
+      <img id="si" src="./images/srchicon.png" onclick="updatesymbol()">
+      <a href=#><button id="buy">BUY</button></a>
+      <a href=#><button id="sell">SELL</button></a>
+    </div>
+  </header>
+
+
+  
+  <div class="tradingview-widget-container">
+    <div class="tradingview-widget-container__widget"></div>
+  </div> 
+  <script>
+    updateSymbol();
+    function getQueryParameter(parameterName) {
+      var queryString = window.location.search;
+      var urlParams = new URLSearchParams(queryString);
+      return urlParams.get(parameterName);
+    }
+    function updateSymbol() {
+      var symbol = getQueryParameter('ticker');
+      var scriptTag = document.createElement("script");
+      scriptTag.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
+      scriptTag.async = true;
+      scriptTag.innerHTML = `{
+        "width": "1515",
+        "height": "630",
+        "symbol": "${symbol}",
+        "interval": "D",
+        "timezone": "Etc/UTC",
+        "theme": "dark",
+        "style": "2",
+        "locale": "en",
+        "enable_publishing": false,
+        "allow_symbol_change": true,
+        "calendar": false,
+        "support_host": "https://www.tradingview.com"
+      }`;
+      document.getElementsByClassName("tradingview-widget-container__widget")[0].innerHTML = "";
+      document.getElementsByClassName("tradingview-widget-container__widget")[0].appendChild(scriptTag);
+    }
+    function onEnterKeyPress(event) 
+    {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        updatesymbol();
+      }
+    }
+    document.getElementById('ticker').addEventListener('keypress', onEnterKeyPress);
+
+    function updatesymbol() {
+      var symbol = document.getElementById("ticker").value;
+      var scriptTag = document.createElement("script");
+      scriptTag.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
+      scriptTag.async = true;
+      scriptTag.innerHTML = `{
+        "width": "1515",
+        "height": "630",
+        "symbol": "${symbol}",
+        "interval": "D",
+        "timezone": "Etc/UTC",
+        "theme": "dark",
+        "style": "2",
+        "locale": "en",
+        "enable_publishing": false,
+        "allow_symbol_change": true,
+        "calendar": false,
+        "support_host": "https://www.tradingview.com"
+      }`;
+      document.getElementsByClassName("tradingview-widget-container__widget")[0].innerHTML = "";
+      document.getElementsByClassName("tradingview-widget-container__widget")[0].appendChild(scriptTag);
+    }
+  </script>
+  <body>
+
+<style>
+  .nav{
+    display:flex;
+    margin-bottom: 10px;
+    margin-top: 15px;
+  }
+  #log{
+    width: 100px;
+    height: 60px;
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+  #si{
+    margin-left:-45px;margin-top:7px;
+    width: 45px;z-index: 1;
+    height: 45px;
+  
+  }
+  #ticker{
+    margin-left: 10px;margin-bottom: 5px;
+    margin-top: 10px;
+    height: 32px; width: 750px;
+    border-radius: 18px; padding: 5px 20px;
+    outline: none; border:none; 
+  }
+  body{
+    background-color:rgb(9, 9, 9);
+  }
+  #buy:hover{
+    background: linear-gradient(220.55deg, #00B960 0%, #00552C 100%);
+    width:195px;height:50px;transform: scale(1.05);
+    border-radius: 20px;margin-top: 5px;
+    margin-left: 70px;margin-right:25px;
+    font-weight: bolder;color:azure;
+    }
+    #sell:hover{
+      background:linear-gradient(220.55deg, #e65530 0%, #D02020 100%);
+    width:195px;height:50px;margin-top: 5px;
+    border-radius: 20px;border:none;transform: scale(1.05);
+    font-weight: bolder;color:azure;
+    }
+
+    #buy{
+      background: linear-gradient(220.55deg, #00B960 0%, #00552C 100%);
+    width:195px;height:50px;border:none;
+    border-radius: 20px;margin-top: 5px;
+    margin-left: 70px;margin-right:25px;
+    font-weight: bolder;
+    }
+    #sell{
+    background:linear-gradient(220.55deg, #e65530 0%, #D02020 100%);
+    width:195px;height:50px;margin-top: 5px;
+    border-radius: 20px;border:none;
+    font-weight: bolder;
+    }
+</style>
+
+  </body>
+</html>
+
+
+
+
+
